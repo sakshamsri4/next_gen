@@ -166,6 +166,28 @@ flutter gen-l10n --arb-dir="lib/l10n/arb"
 
 Alternatively, run `flutter run` and code generation will take place automatically.
 
+## Firebase Configuration
+
+To set up Firebase in your local development environment:
+
+1. Install FlutterFire CLI:
+```bash
+dart pub global activate flutterfire_cli
+```
+
+2. Configure Firebase for your app:
+```bash
+flutterfire configure
+```
+
+3. Copy the generated configuration files to their respective locations:
+   - `lib/firebase_options.dart` for Flutter
+   - `android/app/google-services.json` for Android
+   - `ios/Runner/GoogleService-Info.plist` for iOS
+   - `macos/Runner/GoogleService-Info.plist` for macOS
+
+**Note:** Firebase configuration files contain sensitive API keys and are not committed to version control. Contact the project maintainer to obtain these files.
+
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
 [internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
