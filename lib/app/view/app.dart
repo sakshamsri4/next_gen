@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:next_gen/counter/counter.dart';
+import 'package:next_gen/features/auth/view/auth_test_page.dart';
 import 'package:next_gen/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const AuthTestPage(),
     );
   }
 }
