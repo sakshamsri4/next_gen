@@ -19,11 +19,16 @@ dependencies:
   cloud_firestore: ^4.15.9
   firebase_storage: ^11.6.10
   firebase_database: ^10.4.10
+  freezed_annotation: ^3.0.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   bloc_test: ^10.0.0
+  build_runner: ^2.4.14
   flutter_test:
     sdk: flutter
+  freezed: ^3.0.4
+  json_serializable: ^6.9.4
   mocktail: ^1.0.4
   very_good_analysis: ^6.0.0
 
