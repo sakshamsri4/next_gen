@@ -4,7 +4,13 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:next_gen/firebase_options.dart';
+
+// Try to import the real Firebase options first
+// This is ignored in CI environment due to .gitignore
+import 'package:next_gen/firebase_options.dart' as firebase_real;
+// We use the real Firebase options by default, but fall back to CI options if
+// the real ones are not available
+import 'package:next_gen/firebase_options_ci.dart' as firebase_ci;
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -25,9 +31,27 @@ class AppBlocObserver extends BlocObserver {
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // Check if Firebase is already initialized to prevent duplicate initialization
+  if (Firebase.apps.isEmpty) {
+    // Initialize Firebase with the real options, falling back to CI options
+    try {
+      await Firebase.initializeApp(
+        options: firebase_real.DefaultFirebaseOptions.currentPlatform,
+      );
+      log('Using real Firebase configuration');
+    } catch (e) {
+      // Only try the fallback if it's not already initialized
+      if (Firebase.apps.isEmpty) {
+        debugPrint('Using CI Firebase configuration $e');
+        await Firebase.initializeApp(
+          options: firebase_ci.DefaultFirebaseOptions.currentPlatform,
+        );
+        log('Using CI Firebase configuration');
+      }
+    }
+  } else {
+    log('Firebase already initialized, skipping initialization');
+  }
 
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
