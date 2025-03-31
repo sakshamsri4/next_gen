@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
 /// Template for Firebase configuration options
 /// Replace the placeholder values with your actual Firebase configuration
@@ -16,9 +16,17 @@ class DefaultFirebaseOptions {
         return ios;
       case TargetPlatform.macOS:
         return macos;
-      default:
+      case TargetPlatform.linux:
         throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
+          'DefaultFirebaseOptions are not supported for Linux.',
+        );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for Windows.',
+        );
+      case TargetPlatform.fuchsia:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for Fuchsia.',
         );
     }
   }

@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Service class to handle Firebase Authentication operations
@@ -10,7 +11,7 @@ class FirebaseService {
       final userCredential = await _auth.signInAnonymously();
       return userCredential.user;
     } catch (e) {
-      print('Error signing in anonymously: $e');
+      developer.log('Error signing in anonymously', error: e);
       return null;
     }
   }
